@@ -34,6 +34,7 @@ const ContestCarousel = () => {
   const [direction, setDirection] = useState(1); // 1 for right, -1 for left
   const autoRotateTimerRef = useRef(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState('home');
 
   // Auth modal state
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
@@ -43,6 +44,18 @@ const ContestCarousel = () => {
 
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
+      
+      // Determine current page based on scroll position
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      
+      if (scrollY < windowHeight * 0.5) {
+        setCurrentPage('home');
+      } else if (scrollY < windowHeight * 1.5) {
+        setCurrentPage('contests');
+      } else {
+        setCurrentPage('about');
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -642,33 +655,33 @@ const socialLinks = [
             <div className="flex justify-between items-center h-16 sm:h-20">
               <div className="flex items-center space-x-2">
                 <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-500 rounded-lg flex items-center justify-center text-white font-bold text-sm sm:text-base shadow-md">
-                  CT
+                  {currentPage === 'home' ? 'CP' : currentPage === 'contests' ? 'CP' : 'CP'}
                 </div>
                 <span className="text-lg sm:text-xl font-bold text-gray-900">
-                  CodeTrack<span className="text-blue-600">Pro</span>
+                  {currentPage === 'home' ? 'ContestPro' : currentPage === 'contests' ? 'ContestPro' : 'CodePrepPro'}<span className="text-blue-600"></span>
                 </span>
               </div>
 
               {/* Desktop Navigation */}
               <div className="hidden md:flex items-center space-x-10">
-                <a
+                {/* <a
                   href="#features"
                   className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-300"
                 >
                   Features
-                </a>
+                </a> */}
                 <a
                   href="#contests"
                   className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-300"
                 >
                   Contests
                 </a>
-                <a
+                {/* <a
                   href="#testimonials"
                   className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-300"
                 >
                   Testimonials
-                </a>
+                </a> */}
               </div>
 
               <div className="hidden md:flex space-x-4">
@@ -740,24 +753,24 @@ const socialLinks = [
                 transition={{ duration: 0.3 }}
               >
                 <div className="px-4 py-4 space-y-1">
-                  <a
+                  {/* <a
                     href="#features"
                     className="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50"
                   >
                     Features
-                  </a>
+                  </a> */}
                   <a
                     href="#contests"
                     className="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50"
                   >
                     Contests
                   </a>
-                  <a
+                  {/* <a
                     href="#testimonials"
                     className="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50"
                   >
                     Testimonials
-                  </a>
+                  </a> */}
                   <div className="pt-2 pb-1">
                     <div className="border-t border-gray-200 pt-4 flex flex-col space-y-3">
                       
@@ -1199,43 +1212,7 @@ const socialLinks = [
 
          
 
-          {/* CTA Section */}
-          <motion.div
-            className="py-16 sm:py-20 md:py-24 px-4 sm:px-6 bg-gray-50"
-            variants={fadeInUpVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-          >
-            <div className="max-w-5xl mx-auto">
-              <motion.div
-                className="relative bg-blue-500 rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-12 text-center overflow-hidden shadow-xl"
-                variants={itemVariants}
-              >
-                <div className="relative z-10">
-                  <motion.h2
-                    className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
-                    viewport={{ once: true }}
-                  >
-                    Ready to Level Up Your Coding Career?
-                  </motion.h2>
-                  <motion.p
-                    className="text-base sm:text-lg md:text-xl text-white/90  sm:mb-8 md:mb-10 max-w-2xl mx-auto"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 }}
-                    viewport={{ once: true }}
-                  >
-
-Learning Data Structures and Algorithms (DSA) strengthens problem-solving skills, boosts placement performance by preparing you for coding interviews, and helps you write efficient, optimized code essential for real-world software development.
-                  </motion.p>
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
+         
         </main>
 
         {/* Footer */}
